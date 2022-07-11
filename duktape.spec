@@ -4,12 +4,13 @@
 #
 Name     : duktape
 Version  : 2.7.0
-Release  : 2
+Release  : 3
 URL      : https://duktape.org/duktape-2.7.0.tar.xz
 Source0  : https://duktape.org/duktape-2.7.0.tar.xz
 Summary  : Embeddable Javascript engine
 Group    : Development/Tools
 License  : MIT
+Requires: duktape-lib = %{version}-%{release}
 Requires: duktape-license = %{version}-%{release}
 
 %description
@@ -23,11 +24,21 @@ spirit to Lua's.
 %package dev
 Summary: dev components for the duktape package.
 Group: Development
+Requires: duktape-lib = %{version}-%{release}
 Provides: duktape-devel = %{version}-%{release}
 Requires: duktape = %{version}-%{release}
 
 %description dev
 dev components for the duktape package.
+
+
+%package lib
+Summary: lib components for the duktape package.
+Group: Libraries
+Requires: duktape-license = %{version}-%{release}
+
+%description lib
+lib components for the duktape package.
 
 
 %package license
@@ -47,7 +58,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1657560808
+export SOURCE_DATE_EPOCH=1657561342
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -60,26 +71,29 @@ make  %{?_smp_mflags}  -f Makefile.sharedlibrary INSTALL_PREFIX=%{_prefix} LIBDI
 
 
 %install
-export SOURCE_DATE_EPOCH=1657560808
+export SOURCE_DATE_EPOCH=1657561342
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/duktape
 cp %{_builddir}/duktape-2.7.0/LICENSE.txt %{buildroot}/usr/share/package-licenses/duktape/c441a7053b67826081e515f8e52a10950e20f315
-%makeinstall -f Makefile.sharedlibrary DESTDIR=%{buildroot} INSTALL_PREFIX=%{_prefix} LIBDIR=%{_lib}
+%makeinstall -f Makefile.sharedlibrary DESTDIR=%{buildroot} INSTALL_PREFIX=%{_prefix} LIBDIR=/%{_lib}
 
 %files
 %defattr(-,root,root,-)
-/usrlib64/libduktape.so
-/usrlib64/libduktape.so.207
-/usrlib64/libduktape.so.207.20700
-/usrlib64/libduktaped.so
-/usrlib64/libduktaped.so.207
-/usrlib64/libduktaped.so.207.20700
-/usrlib64/pkgconfig/duktape.pc
 
 %files dev
 %defattr(-,root,root,-)
 /usr/include/duk_config.h
 /usr/include/duktape.h
+/usr/lib64/libduktape.so
+/usr/lib64/libduktaped.so
+/usr/lib64/pkgconfig/duktape.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libduktape.so.207
+/usr/lib64/libduktape.so.207.20700
+/usr/lib64/libduktaped.so.207
+/usr/lib64/libduktaped.so.207.20700
 
 %files license
 %defattr(0644,root,root,0755)
