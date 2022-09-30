@@ -4,7 +4,7 @@
 #
 Name     : duktape
 Version  : 2.7.0
-Release  : 4
+Release  : 5
 URL      : https://duktape.org/duktape-2.7.0.tar.xz
 Source0  : https://duktape.org/duktape-2.7.0.tar.xz
 Summary  : Embeddable Javascript engine
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : MIT
 Requires: duktape-lib = %{version}-%{release}
 Requires: duktape-license = %{version}-%{release}
+Patch1: libm.patch
 
 %description
 =======
@@ -52,13 +53,14 @@ license components for the duktape package.
 %prep
 %setup -q -n duktape-2.7.0
 cd %{_builddir}/duktape-2.7.0
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1664557369
+export SOURCE_DATE_EPOCH=1664557862
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -71,7 +73,7 @@ make  %{?_smp_mflags}  -f Makefile.sharedlibrary INSTALL_PREFIX=%{_prefix} LIBDI
 
 
 %install
-export SOURCE_DATE_EPOCH=1664557369
+export SOURCE_DATE_EPOCH=1664557862
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/duktape
 cp %{_builddir}/duktape-%{version}/LICENSE.txt %{buildroot}/usr/share/package-licenses/duktape/c441a7053b67826081e515f8e52a10950e20f315 || :

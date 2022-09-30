@@ -1,0 +1,16 @@
+--- duktape-2.7.0/Makefile.sharedlibrary~	2022-02-18 21:22:19.000000000 +0000
++++ duktape-2.7.0/Makefile.sharedlibrary	2022-09-30 17:08:57.749392242 +0000
+@@ -70,11 +70,11 @@
+ # to $INSTALL_PREFIX/include on installation.
+ 
+ libduktape.$(SO_REALNAME_SUFFIX):
+-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) -lm \
+ 		-o $@ $(DUKTAPE_SRCDIR)/duktape.c
+ 
+ libduktaped.$(SO_REALNAME_SUFFIX):
+-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -g -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktaped.$(SO_SONAME_SUFFIX) \
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -shared -fPIC -g -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktaped.$(SO_SONAME_SUFFIX) -lm \
+ 		-o $@ $(DUKTAPE_SRCDIR)/duktape.c
+ 
+ duktape.pc:
