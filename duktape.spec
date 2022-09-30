@@ -4,7 +4,7 @@
 #
 Name     : duktape
 Version  : 2.7.0
-Release  : 3
+Release  : 4
 URL      : https://duktape.org/duktape-2.7.0.tar.xz
 Source0  : https://duktape.org/duktape-2.7.0.tar.xz
 Summary  : Embeddable Javascript engine
@@ -58,7 +58,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1657561342
+export SOURCE_DATE_EPOCH=1664557369
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -71,10 +71,10 @@ make  %{?_smp_mflags}  -f Makefile.sharedlibrary INSTALL_PREFIX=%{_prefix} LIBDI
 
 
 %install
-export SOURCE_DATE_EPOCH=1657561342
+export SOURCE_DATE_EPOCH=1664557369
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/duktape
-cp %{_builddir}/duktape-2.7.0/LICENSE.txt %{buildroot}/usr/share/package-licenses/duktape/c441a7053b67826081e515f8e52a10950e20f315
+cp %{_builddir}/duktape-%{version}/LICENSE.txt %{buildroot}/usr/share/package-licenses/duktape/c441a7053b67826081e515f8e52a10950e20f315 || :
 %makeinstall -f Makefile.sharedlibrary DESTDIR=%{buildroot} INSTALL_PREFIX=%{_prefix} LIBDIR=/%{_lib}
 
 %files
